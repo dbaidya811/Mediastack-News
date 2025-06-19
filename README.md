@@ -1,73 +1,93 @@
-# Welcome to your Lovable project
+# Mediastack-News Web App - README
 
-## Project info
+## Overview
+Mediastack-News is a web application that fetches and displays news articles from various sources using the [mediastack API](https://mediastack.com/). This application allows users to browse news by categories, search for specific topics, and view detailed news articles.
 
-**URL**: https://lovable.dev/projects/9647b2e4-03db-4a37-8318-77ef204b65cf
+## Features
+- **News Categories**: Browse news by categories like business, entertainment, health, science, sports, technology
+- **Search Functionality**: Search for news articles by keywords
+- **Responsive Design**: Works on desktop, tablet and mobile devices
+- **Pagination**: Browse through multiple pages of news results
+- **Detailed View**: Click on articles to see more details
 
-## How can I edit this code?
+## Technologies Used
+- Frontend: HTML, CSS, JavaScript (React.js/Vue.js/Angular - specify which one)
+- Backend: (Node.js/Express.js/Django/Flask - specify if applicable)
+- API: mediastack API (https://mediastack.com/)
+- Deployment: (Netlify/Vercel/Heroku/etc. - specify if applicable)
 
-There are several ways of editing your application.
+## Setup Instructions
 
-**Use Lovable**
+### Prerequisites
+- Node.js (version X.X.X or higher) - if using JavaScript framework
+- API key from mediastack (free tier available)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9647b2e4-03db-4a37-8318-77ef204b65cf) and start prompting.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/mediastack-news.git
+   cd mediastack-news
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-**Use your preferred IDE**
+3. Create a `.env` file in the root directory and add your mediastack API key:
+   ```
+   REACT_APP_MEDIASTACK_API_KEY=your_api_key_here
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+5. Open your browser and navigate to `http://localhost:3000`
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## API Configuration
+The application uses the mediastack API with the following base configuration:
+```javascript
+const API_URL = `http://api.mediastack.com/v1/news?access_key=${process.env.REACT_APP_MEDIASTACK_API_KEY}`;
 ```
 
-**Edit a file directly in GitHub**
+You can modify the API parameters to fetch different types of news data as needed.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Deployment
+To deploy this project:
 
-**Use GitHub Codespaces**
+1. Build the production version:
+   ```bash
+   npm run build
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+2. Deploy the `build` folder to your preferred hosting service (Netlify, Vercel, etc.)
 
-## What technologies are used for this project?
+## Environment Variables
+The following environment variables are required:
 
-This project is built with:
+| Variable Name | Description |
+|---------------|-------------|
+| `REACT_APP_MEDIASTACK_API_KEY` | Your mediastack API access key |
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## How can I deploy this project?
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Simply open [Lovable](https://lovable.dev/projects/9647b2e4-03db-4a37-8318-77ef204b65cf) and click on Share -> Publish.
+## Contact
+For any questions or feedback, please contact:
+[Your Name] - [your.email@example.com]  
+Project Link: [https://github.com/yourusername/mediastack-news](https://github.com/yourusername/mediastack-news)
 
-## Can I connect a custom domain to my Lovable project?
+## Screenshots
+(You can add screenshots of your application here if available)
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
