@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediastack News</title>
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/11922/11922234.png">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-bar">
+            <h1>Mediastack News</h1>
+            <div class="nav-categories" id="navControls">
+                <label for="category-select">Category</label>
+                <select id="category-select">
+                    <option value="general">General</option>
+                    <option value="business">Business</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="health">Health</option>
+                    <option value="science">Science</option>
+                    <option value="sports">Sports</option>
+                    <option value="technology">Technology</option>
+                </select>
+                <button class="translate-icon-btn" id="translateIconBtn" aria-label="Translate">
+                    <img src="https://cdn-icons-png.flaticon.com/512/281/281776.png" alt="Translate">
+                </button>
+                <div class="translate-modal" id="translateModal">
+                    <div id="google_translate_element_desktop"></div>
+                </div>
+                <div class="dark-mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeSwitch" aria-label="Toggle dark mode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <img src="https://cdn-icons-png.flaticon.com/512/16545/16545977.png" alt="Menu" class="mobile-menu-icon-img" />
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+                <div class="mobile-menu-content">
+                    <div class="mobile-menu-row">
+                        <label for="category-select-mobile">Category</label>
+                    </div>
+                    <select id="category-select-mobile">
+                        <option value="general">General</option>
+                        <option value="business">Business</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="health">Health</option>
+                        <option value="science">Science</option>
+                        <option value="sports">Sports</option>
+                        <option value="technology">Technology</option>
+                    </select>
+                    <button class="translate-icon-btn mobile-menu-row" id="translateIconBtnMobile" aria-label="Translate">
+                        <span>Translate</span>
+                    </button>
+                    <div class="translate-modal" id="translateModalMobile">
+                        <div id="google_translate_element_mobile_menu"></div>
+                    </div>
+                    <div class="dark-mode-toggle mobile-menu-row">
+                        <span>Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeSwitchMobile" aria-label="Toggle dark mode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="layout">
+        <div class="container">
+            <div id="news-list" class="loading">Loading news...</div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element_desktop');
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        // Desktop translate icon
+        var iconBtn = document.getElementById('translateIconBtn');
+        var modal = document.getElementById('translateModal');
+        var translateElemDesktop = document.getElementById('google_translate_element_desktop');
+        var googleWidgetLoadedDesktop = false;
+        if (iconBtn && modal) {
+          iconBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.toggle('active');
+            if (modal.classList.contains('active') && !googleWidgetLoadedDesktop) {
+              translateElemDesktop.innerHTML = '';
+              new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element_desktop');
+              googleWidgetLoadedDesktop = true;
+            }
+          });
+          document.addEventListener('click', function(e) {
+            if (!modal.contains(e.target) && e.target !== iconBtn) {
+              modal.classList.remove('active');
+              translateElemDesktop.innerHTML = '';
+              googleWidgetLoadedDesktop = false;
+            }
+          });
+        }
+        // Mobile menu toggle
+        var menuBtn = document.getElementById('mobileMenuBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (menuBtn && mobileMenu) {
+          menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('active');
+          });
+          document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && e.target !== menuBtn) {
+              mobileMenu.classList.remove('active');
+            }
+          });
+        }
+        // Sync category select
+        var catDesktop = document.getElementById('category-select');
+        var catMobile = document.getElementById('category-select-mobile');
+        if (catDesktop && catMobile) {
+          catMobile.value = catDesktop.value;
+          catMobile.addEventListener('change', function() {
+            catDesktop.value = catMobile.value;
+            catDesktop.dispatchEvent(new Event('change'));
+            mobileMenu.classList.remove('active');
+          });
+          catDesktop.addEventListener('change', function() {
+            catMobile.value = catDesktop.value;
+          });
+        }
+        // Translate icon in mobile menu
+        var iconBtnMobile = document.getElementById('translateIconBtnMobile');
+        var modalMobile = document.getElementById('translateModalMobile');
+        var translateElemMobileMenu = document.getElementById('google_translate_element_mobile_menu');
+        var googleWidgetLoaded = false;
+        if (iconBtnMobile && modalMobile) {
+          iconBtnMobile.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modalMobile.classList.toggle('active');
+            if (modalMobile.classList.contains('active') && !googleWidgetLoaded) {
+              translateElemMobileMenu.innerHTML = '';
+              new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element_mobile_menu');
+              googleWidgetLoaded = true;
+            }
+          });
+          document.addEventListener('click', function(e) {
+            if (!modalMobile.contains(e.target) && e.target !== iconBtnMobile) {
+              modalMobile.classList.remove('active');
+              translateElemMobileMenu.innerHTML = '';
+              googleWidgetLoaded = false;
+            }
+          });
+        }
+        // Dark mode toggle in mobile menu
+        var darkSwitch = document.getElementById('darkModeSwitch');
+        var darkSwitchMobile = document.getElementById('darkModeSwitchMobile');
+        var body = document.body;
+        // Load preference
+        if (localStorage.getItem('darkMode') === 'true') {
+          body.classList.add('dark-mode');
+          if (darkSwitch) darkSwitch.checked = true;
+          if (darkSwitchMobile) darkSwitchMobile.checked = true;
+        }
+        function setDarkMode(val) {
+          if (val) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'true');
+          } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', 'false');
+          }
+          if (darkSwitch) darkSwitch.checked = val;
+          if (darkSwitchMobile) darkSwitchMobile.checked = val;
+        }
+        if (darkSwitch) {
+          darkSwitch.addEventListener('change', function() {
+            setDarkMode(darkSwitch.checked);
+          });
+        }
+        if (darkSwitchMobile) {
+          darkSwitchMobile.addEventListener('change', function() {
+            setDarkMode(darkSwitchMobile.checked);
+          });
+        }
+      });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html> 
